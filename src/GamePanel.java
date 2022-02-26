@@ -39,7 +39,7 @@ public class GamePanel extends JPanel{
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
 		g.drawString("LEAGUE_INVADERS", 30, 100);
-		g.setFont(pressPlayFont);
+		g.setFont(pressPlayFont); 
 		g.setColor(Color.YELLOW);
 		g.drawString("press enter to start", 100, 300);
 		g.setFont(instructionsFont);

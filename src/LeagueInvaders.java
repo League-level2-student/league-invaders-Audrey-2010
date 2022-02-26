@@ -7,7 +7,7 @@ public static final int HEIGHT = 800;
 
 LeagueInvaders(){
 	frame = new JFrame();
-	gpanel = new GamePanel();
+	gpanel = new GamePanel(); 
 }
  void setup() {
 	 frame.add(gpanel);
