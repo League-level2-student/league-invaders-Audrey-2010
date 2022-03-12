@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -61,7 +62,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	 void drawGameState(Graphics g) { 
 		 g.setColor(Color.BLACK);
 		 g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
-		 draw(g);
+		 spaceship.draw(g);
 	 }
 	 void drawEndState(Graphics g)  { 
 		 g.setColor(Color.red);
@@ -118,15 +119,34 @@ public void keyPressed(KeyEvent e) {
 	if(currentState == GAME) {
 		if (e.getKeyCode()==KeyEvent.VK_UP) {
 		    System.out.println("UP");
+		   if(spaceship.y>0) {
+		
+		    spaceship.up();
+		   }
 		}
 		else if (e.getKeyCode()==KeyEvent.VK_DOWN) {
 		    System.out.println("DOWN");
+		    if(spaceship.y<=LeagueInvaders.HEIGHT) {
+		    	
+		    spaceship.down();
+		    }
 		}
 		else if (e.getKeyCode()==KeyEvent.VK_LEFT) {
+			if(spaceship.x>0) {
+				
+			
+				spaceship.left();
+			}
 		    System.out.println("LEFT");
 		}
 		else if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
 		    System.out.println("RIGHT");
+		    if(spaceship.x<LeagueInvaders.WIDTH) {
+		    	
+		    
+		    	spaceship.right();
+		    	//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
+		    }
 		}
 	}
 }
