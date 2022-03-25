@@ -20,7 +20,7 @@ public class ObjectManager {
 	}
 	void update() {
 		for(int i = 0; i<aliens.size(); i++) {
-			if(aliens[i]>)
+			aliens.get(i);
 		}
 	}
 }

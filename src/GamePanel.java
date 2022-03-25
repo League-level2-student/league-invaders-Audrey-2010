@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -24,17 +26,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	Font restartFont;
 	Timer frameDraw;
 	Rocketship spaceship = new Rocketship(250, 700, 50, 50);
+	public static BufferedImage image;
+	public static boolean needImage = true;
+	public static boolean gotImage = false;
 	@Override
 	public void paintComponent(Graphics g){
 		if(currentState == MENU){
 		    drawMenuState(g);
-		}else if(currentState == GAME){
+		}
+		else if(currentState == GAME){
 		    drawGameState(g);
 		}else if(currentState == END){
 		    drawEndState(g);
 		}
-
 	}
+	
 	void updateMenuState() {
 		
 	}
@@ -60,9 +66,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 
 	}
 	 void drawGameState(Graphics g) { 
-		 g.setColor(Color.BLACK);
-		 g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		 
 		 spaceship.draw(g);
+		 if (gotImage) {
+				g.drawImage(image, 0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT, null);
+				
+			} 
+
 	 }
 	 void drawEndState(Graphics g)  { 
 		 g.setColor(Color.red);
@@ -86,6 +96,9 @@ GamePanel(){
     restartFont = new Font("Arial", Font.PLAIN, 30);
     frameDraw = new Timer(1000/60,this);
     frameDraw.start();
+    if (needImage) {
+        loadImage ("space.png");
+    }
 
 }
 @Override
@@ -155,5 +168,15 @@ public void keyReleased(KeyEvent e) {
 	// TODO Auto-generated method stub
 	
 }
-
+void loadImage(String imageFile) {
+    if (needImage) {
+        try {
+            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+	    gotImage = true;
+        } catch (Exception e) {
+            
+        }
+        needImage = false;
+    }
+}
 }
