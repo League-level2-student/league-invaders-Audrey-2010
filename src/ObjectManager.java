@@ -1,7 +1,9 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ObjectManager {
+public class ObjectManager extends GamePanel implements ActionListener{
 	
 	
 	Rocketship rocket;
@@ -22,5 +24,10 @@ public class ObjectManager {
 		for(int i = 0; i<aliens.size(); i++) {
 			aliens.get(i);
 		}
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		addAlien(aliens <random.nextInt()>);
 	}
 }

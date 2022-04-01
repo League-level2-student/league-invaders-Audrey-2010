@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	Font enemieskilledFont;
 	Font restartFont;
 	Timer frameDraw;
+	Timer alienSpawn;
 	Rocketship spaceship = new Rocketship(250, 700, 50, 50);
 	public static BufferedImage image;
 	public static boolean needImage = true;
@@ -39,6 +40,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		}else if(currentState == END){
 		    drawEndState(g);
 		}
+	}
+	
+	void startGame() {
+		alienSpawn = new Timer(1000 , gpanel);
+	    alienSpawn.start();
 	}
 	
 	void updateMenuState() {
@@ -67,12 +73,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	}
 	 void drawGameState(Graphics g) { 
 		 
-		 spaceship.draw(g);
+		 
 		 if (gotImage) {
 				g.drawImage(image, 0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT, null);
-				
+		spaceship.draw(g);
 			} 
 
+		 
 	 }
 	 void drawEndState(Graphics g)  { 
 		 g.setColor(Color.red);
@@ -122,6 +129,15 @@ public void keyTyped(KeyEvent e) {
 @Override
 public void keyPressed(KeyEvent e) {
 	// TODO Auto-generated method stub
+	if(currentState == GAME) {
+		startGame();
+	if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+			ObjectManager.addProjectile(spaceship.getProjectile());
+		}
+	}
+	if(currentState == END) {
+		alienSpawn.stop();
+	}
 	if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 	    if (currentState == END) {
 	        currentState = MENU;
