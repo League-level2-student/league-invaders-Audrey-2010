@@ -9,7 +9,7 @@ public class Alien extends GameObject{
 	public static BufferedImage image;
 	public  static boolean needImage = true;
 	public static boolean gotImage = false;	
-	
+	 
 	Alien(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
@@ -17,7 +17,7 @@ public class Alien extends GameObject{
 		if (needImage) {
 		    loadImage ("alien.png");
 		}
-	}
+	} //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
 	
 	void update() {
 		y+=speed;
