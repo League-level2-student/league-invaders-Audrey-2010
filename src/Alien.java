@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 public class Alien extends GameObject{
 
 	public static BufferedImage image;
-	public static boolean needImage = true;
+	public  static boolean needImage = true;
 	public static boolean gotImage = false;	
 	
 	Alien(int x, int y, int width, int height) {
@@ -27,7 +27,7 @@ public class Alien extends GameObject{
         if (gotImage) {
         	g.drawImage(image, x, y, width, height, null);
         } else {
-        	g.setColor(Color.BLUE);
+        	g.setColor(Color.YELLOW);
         	g.fillRect(x, y, width, height);
         }
 	}

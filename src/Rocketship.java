@@ -52,5 +52,13 @@ public class Rocketship extends GameObject{
 	        needImage = false;
 	    }
 	}
-}
+
 //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
+
+
+public Projectile getProjectile() {
+    return new Projectile(x+width/2, y, 10, 10);
+} 
+
+}
+

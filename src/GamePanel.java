@@ -120,6 +120,7 @@ public void actionPerformed(ActionEvent e) {
 	}
 	System.out.println("action");
 	repaint();
+
 }
 @Override
 public void keyTyped(KeyEvent e) {
@@ -131,9 +132,9 @@ public void keyPressed(KeyEvent e) {
 	// TODO Auto-generated method stub
 	if(currentState == GAME) {
 		startGame();
-	if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+	
 			ObjectManager.addProjectile(spaceship.getProjectile());
-		}
+		
 	}
 	if(currentState == END) {
 		alienSpawn.stop();
@@ -151,6 +152,10 @@ public void keyPressed(KeyEvent e) {
 		   if(spaceship.y>0) {
 		
 		    spaceship.up();
+		    if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+		    	ObjectManager.addProjectile(spaceship.getProjectile());
+		    }
+		    
 		   }
 		}
 		else if (e.getKeyCode()==KeyEvent.VK_DOWN) {
@@ -175,7 +180,11 @@ public void keyPressed(KeyEvent e) {
 		    
 		    	spaceship.right();
 		    	//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
+		    if(currentState == END) {
+		    	alienSpawn.stop();
 		    }
+		    }
+		    
 		}
 	}
 }
