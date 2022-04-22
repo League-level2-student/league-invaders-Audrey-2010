@@ -8,7 +8,7 @@ int height;
 Rectangle collisionBox;
 
 int speed = 0;
-boolean isActive = false;
+boolean isActive = true;
 GameObject(int x, int y, int width, int height ){
 	this.x=(x);
 	this.y=(y);
@@ -20,6 +20,7 @@ GameObject(int x, int y, int width, int height ){
 void update(){
 	collisionBox.setBounds(x, y, width, height);
 	
+
+
 }
-super.update();
 }

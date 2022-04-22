@@ -54,7 +54,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateGameState() {
 		objectmanager.update();
-		
+		if (spaceship.isActive == false) {
+			currentState = END;
+		}
 	}
 
 	void updateEndState() {
@@ -124,7 +126,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == END) {
 			updateEndState();
 		}
-		
+
 		repaint();
 
 	}
@@ -139,38 +141,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (currentState == GAME) {
-			
 
-			
-
-		}
-		if (currentState == END) {
-			alienSpawn.stop();
-		}
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if (currentState == END) {
-				currentState = MENU;
-			} else {
-				currentState++;
-				if(currentState==GAME) {
-					startGame();
-				}
-			}
-		}
-		if (currentState == GAME) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				System.out.println("UP");
 				if (spaceship.y > 0) {
 
 					spaceship.up();
-					
-
+					//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
 				}
 			}
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 				ObjectManager.addProjectile(spaceship.getProjectile());
-			
-			}  else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				System.out.println("SPACE");
+
+			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				System.out.println("DOWN");
 				if (spaceship.y <= LeagueInvaders.HEIGHT) {
 
@@ -194,6 +178,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				}
 
 			}
+		}
+
+		if (currentState == END) {
+			alienSpawn.stop();
+		}
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (currentState == END) {
+				currentState = MENU;
+			} else {
+				currentState++;
+				if (currentState == GAME) {
+					startGame();
+				}
+			}
+
 		}
 	}
 
