@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -24,6 +25,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font gameoverFont;
 	Font enemieskilledFont;
 	Font restartFont;
+	Font scoreFont;
 	Timer frameDraw;
 	Timer alienSpawn;
 	Rocketship spaceship = new Rocketship(250, 700, 50, 50);
@@ -57,6 +59,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (spaceship.isActive == false) {
 			currentState = END;
 		}
+		
 	}
 
 	void updateEndState() {
@@ -84,6 +87,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			g.drawImage(image, 0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT, null);
 			objectmanager.draw(g);
 		}
+		
+		g.setFont(scoreFont);
+		g.setColor(Color.WHITE);
+		g.drawString(objectmanager.getScore()+"", 40, 40);
 
 	}
 
@@ -108,6 +115,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		gameoverFont = new Font("Arial", Font.PLAIN, 48);
 		enemieskilledFont = new Font("Arial", Font.PLAIN, 30);
 		restartFont = new Font("Arial", Font.PLAIN, 30);
+		scoreFont = new Font("Arial", Font.PLAIN, 20);
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
 		if (needImage) {
@@ -192,7 +200,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 					startGame();
 				}
 			}
-
+				if(currentState == END) {
+					
+					spaceship = new Rocketship(250, 700, 50, 50);
+					spaceship.isActive = true;
+					new ObjectManager(spaceship);
+				}
 		}
 	}
 
