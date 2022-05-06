@@ -28,8 +28,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font scoreFont;
 	Timer frameDraw;
 	Timer alienSpawn;
-	Rocketship spaceship = new Rocketship(250, 700, 50, 50);
-	ObjectManager objectmanager = new ObjectManager(spaceship);
+
+	ObjectManager objectmanager = new ObjectManager();
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
@@ -46,8 +46,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void startGame() {
+		objectmanager = new ObjectManager();
 		alienSpawn = new Timer(1000, objectmanager);
 		alienSpawn.start();
+		objectmanager.score = 0;
 	}
 
 	void updateMenuState() {
@@ -56,10 +58,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateGameState() {
 		objectmanager.update();
-		if (spaceship.isActive == false) {
+		if (objectmanager.rocket.isActive == false) {
 			currentState = END;
 		}
-		
+
 	}
 
 	void updateEndState() {
@@ -86,11 +88,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (gotImage) {
 			g.drawImage(image, 0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT, null);
 			objectmanager.draw(g);
+
 		}
-		
+
 		g.setFont(scoreFont);
 		g.setColor(Color.WHITE);
-		g.drawString(objectmanager.getScore()+"", 40, 40);
+		g.drawString(objectmanager.getScore() + "", 40, 40);
 
 	}
 
@@ -102,7 +105,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Game Over", 100, 100);
 		g.setFont(enemieskilledFont);
 		g.setColor(Color.YELLOW);
-		g.drawString("you killed enemies", 100, 300);
+		g.drawString("you killed " + objectmanager.score + " enemies", 100, 300);
 		g.setFont(restartFont);
 		g.setColor(Color.YELLOW);
 		g.drawString("press enter to play again", 70, 500);
@@ -152,33 +155,33 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				System.out.println("UP");
-				if (spaceship.y > 0) {
+				if (objectmanager.rocket.y > 0) {
 
-					spaceship.up();
-					//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
+					objectmanager.rocket.up();
+					// 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
 				}
 			}
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-				ObjectManager.addProjectile(spaceship.getProjectile());
+				ObjectManager.addProjectile(objectmanager.rocket.getProjectile());
 				System.out.println("SPACE");
 
 			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				System.out.println("DOWN");
-				if (spaceship.y <= LeagueInvaders.HEIGHT) {
+				if (objectmanager.rocket.y <= LeagueInvaders.HEIGHT) {
 
-					spaceship.down();
+					objectmanager.rocket.down();
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				if (spaceship.x > 0) {
+				if (objectmanager.rocket.x > 0) {
 
-					spaceship.left();
+					objectmanager.rocket.left();
 				}
 				System.out.println("LEFT");
 			} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 				System.out.println("RIGHT");
-				if (spaceship.x < LeagueInvaders.WIDTH) {
+				if (objectmanager.rocket.x < LeagueInvaders.WIDTH) {
 
-					spaceship.right();
+					objectmanager.rocket.right();
 					// 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
 					if (currentState == END) {
 						alienSpawn.stop();
@@ -200,12 +203,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 					startGame();
 				}
 			}
-				if(currentState == END) {
-					
-					spaceship = new Rocketship(250, 700, 50, 50);
-					spaceship.isActive = true;
-					new ObjectManager(spaceship);
-				}
+			if (currentState == END) {
+
+				
+			}
 		}
 	}
 

@@ -6,14 +6,14 @@ import java.util.Random;
 
 public class ObjectManager implements ActionListener {
 
-	Rocketship rocket;
+	public Rocketship rocket;
 	static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	ArrayList<Alien> aliens = new ArrayList<Alien>();
 	Random random = new Random();
 	int score = 0;
 
-	ObjectManager(Rocketship rocket) {
-		this.rocket = (rocket);
+	ObjectManager() {
+		this.rocket = new Rocketship(250, 700, 50, 50);
 	}
 
 	public static void addProjectile(Projectile p) {
@@ -31,6 +31,7 @@ public class ObjectManager implements ActionListener {
 	}
 
 	void update() {
+		rocket.update();
 		for (int i = 0; i < aliens.size(); i++) {
 			aliens.get(i).update();
 
@@ -40,6 +41,7 @@ public class ObjectManager implements ActionListener {
 		}
 		checkCollision();
 		purgeObjects();
+		
 	}
 
 	void draw(Graphics g) {
@@ -84,7 +86,7 @@ public class ObjectManager implements ActionListener {
 				if (aliens.get(i).collisionBox.intersects(projectiles.get(i1).collisionBox)) {
 					projectiles.get(i1).isActive = false;
 					aliens.get(i).isActive = false;
-					score=+1;
+					score=score+1;
 					
 
 				}
